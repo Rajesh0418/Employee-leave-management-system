@@ -35,7 +35,7 @@ response.setDateHeader("Expires", 0); // Proxies
   <div class="topbar">
     <div>Welcome, ${employeeData.name}</div>
     <form action="logout" method="post">
-        <a href="/logout" class="logout" >Logout</a>
+        <a href="/employee/logout" class="logout" >Logout</a>
     </form>
   </div>
 
