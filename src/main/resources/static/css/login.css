@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    gap: 30px;
+}
+
+.box {
+    background: #fff;
+    padding: 30px;
+    width: 300px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+.box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.box input {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.box button {
+    width: 100%;
+    padding: 10px;
+    background: #4facfe;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.box button:hover {
+    background: #3a9dfc;
+}
+
+.error {
+    color: red;
+    font-size: 13px;
+    text-align: center;
+}
+
+.dont-have-account{
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    margin-top: 20px;
+}
+a{
+    cursor: pointer;
+}
+.show-password {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:3px;
+}
+.show-password span {
+    cursor: pointer;
+    user-select: none;
+    padding: 6px 3px;
+    font-size: 18px;
+    border: 3px solid black;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+.error{
+    text-align:center;
+    color:red;
+    font-weight:bold;
+    text-size:large;
+}

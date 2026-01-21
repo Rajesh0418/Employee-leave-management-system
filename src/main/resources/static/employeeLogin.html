@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+<div class="container">
+    <!-- Login Box -->
+    <div class="box">
+        <form id="employeeform" action="/employee/login" method="get">
+            <h2>EMPLOYEE LOGIN</h2>
+            <div id="employee-login-error" class="error" ></div>
+            <div>
+                <input type="email" name="email" id="employee-login-email" placeholder="Email" required>
+                <span id="employee-email-invalid"></span>
+            </div>
+            <div class="show-password">
+                <input type="password" name="password" id="employee-login-password" placeholder="Password" required>
+                <span id="employee-toggle-showPassword" onclick="togglePassword(this,'employee-login-password')">🙈</span>
+            </div>
+            <span id="employee-password-invalid"></span>
+            <button onclick="employeeValidation(event,'login','employeeform')">Login</button>
+            <div class="dont-have-account">
+                <span>Don't have an account yet - </span>
+                <a href="/employee/signup">Signup</a>
+            </div>
+        </form>
+    </div>
+    <!-- Register Box -->
+</div>
+<script src="script/toggle.js"></script>
+<script src="script/validation/commonValidation.js"></script>
+<script src="script/validation/managerValidation.js"></script>
+<script src="script/validation/employeeValidation.js"></script>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get("error");
+    if (error) {
+        document.getElementById("employee-login-error").textContent = error;
+
+    }
+</script>
+</body>
+</html>

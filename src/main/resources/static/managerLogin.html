@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+<div class="container">
+    <!-- Register Box -->
+    <div class="box">
+        <form id="managerform" action="/manager/login" method="get">
+            <h2>MANAGER LOGIN</h2>
+            <div id="manager-login-error" class="error"></div>
+            <div>
+                <input type="email" name="email" id="manager-login-email" placeholder="Email">
+                <span id="manager-email-invalid"></span>
+            </div>
+            <div class="show-password">
+                <input type="password" name="password" id="manager-login-password" placeholder="Password">
+                <span id="manager-toggle-showPassword" onclick="togglePassword(this,'manager-login-password')">🙈</span>
+            </div>
+            <span id="manager-password-invalid"></span>
+            <button onclick="managerValidation(event,'login','managerform')">Login</button>
+            <div class="dont-have-account">
+                <span>Don't have an account yet - </span>
+                <a href="managerSignup.html">Signup</a>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="script/toggle.js"></script>
+<script src="script/validation/commonValidation.js"></script>
+<script src="script/validation/managerValidation.js"></script>
+<script src="script/validation/employeeValidation.js"></script>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get("error");
+    if (error) {
+        document.getElementById("manager-login-error").textContent = error;
+    }
+</script>
+</body>
+</html>

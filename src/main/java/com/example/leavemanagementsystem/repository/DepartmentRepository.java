@@ -1,0 +1,22 @@
+package com.example.leavemanagementsystem.repository;
+
+
+import com.example.leavemanagementsystem.model.Department;
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface DepartmentRepository extends JpaRepository<Department,Integer>{
+    @Query("SELECT d.no_of_employees FROM Department d WHERE d.department_name = :deptname")
+    Integer findNoOfEmployeesByDeptname(@Param("deptname") String deptname);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Department d SET d.no_of_employees = :count WHERE d.department_name = :deptname")
+    int updateNoOfEmployeesByDeptname(@Param("deptname") String deptname,
+                                      @Param("count") int count);
+}

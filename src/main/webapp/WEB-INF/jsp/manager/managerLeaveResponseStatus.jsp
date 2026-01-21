@@ -1,0 +1,94 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+<%
+response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+response.setDateHeader("Expires", 0); // Proxies
+%>
+<c:if test="${empty sessionScope.userdata}">
+    <c:redirect url="/manager/manager-login"/>
+</c:if>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Manage Leaves</title>
+<link  href="${pageContext.request.contextPath}/css/mainCSS.css" rel="stylesheet">
+<style>
+    .sidebar h2{
+        margin-bottom:18px;
+    }
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <h2>HYSCALER</h2><hr></hr>
+      <a  href="/manager/dashboard">Dashboard</a>
+      <a  href="/manager/manager-profile">My Profile</a>
+      <a  href="/employee/employees">Employees</a>
+      <a  class="active" href="/manager/employee-leave-list">Leave</a>
+      <a  href="/department/departments">Department</a>
+      <a  href="/manager/change-password">Change Password</a>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div>Welcome, ${userdata.name}</div>
+    <form action="logout" method="post">
+        <a href="/logout" class="logout" >Logout</a>
+    </form>
+  </div>
+
+  <div class="content">
+    <div class="header-row">
+      <h2>Manage Leaves</h2>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>S No</th>
+          <th>Leave Type</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Reason</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <c:if test="${empty leaveRequestsHandler}">
+          <tr>
+              <td colspan="8">No leave requests found</td>
+          </tr>
+      </c:if>
+      <c:forEach var="lv" items="${leaveRequestsHandler}" varStatus="s">
+          <tr>
+              <td>${s.count}</td>
+              <td>${lv.type}</td>
+              <td>${lv.startDate}</td>
+              <td>${lv.endDate}</td>
+              <td>${lv.reason}</td>
+              <td>
+                  <span>${lv.status}</span>
+              </td>
+              <td>
+                  <c:if test="${lv.status == 'Pending'}">
+                      <a href="/manager/leave-request-accepted?id=${lv.id}" class="logout" style="background-color:green">
+                          Leave Accepted
+                      </a>
+                      <a href="/manager/leave-request-rejected?id=${lv.id}" class="logout" style="background-color:red">
+                          Leave Rejected
+                      </a>
+                  </c:if>
+              </td>
+          </tr>
+      </c:forEach>
+
+    </table>
+  </div>
+</div>
+</body>
+</html>
+

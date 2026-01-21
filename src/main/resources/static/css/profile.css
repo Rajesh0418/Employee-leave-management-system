@@ -1,0 +1,28 @@
+.main {
+    display:flex;
+    height:calc(100vh - 60px);
+}
+.content {
+    flex:1;
+    padding:30px;
+}
+.card {
+    background:#fff;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.12);
+    max-width:800px;
+}
+.details-box {
+    display:flex;
+    gap:50px;
+    align-items:center;
+}
+.info p {
+    font-size:16px;
+    margin:12px 0;
+}
+.info b {
+    display:inline-block;
+    width:140px;
+}

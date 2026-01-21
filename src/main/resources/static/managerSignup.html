@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up | Leave Management System</title>
+    <link rel="stylesheet" href="css/signup.css">
+</head>
+<body>
+
+<div class="signup-box">
+    <form class="form" id="manager-signup-form" action="/manager/add-manager" method="post">
+        <h2>CREATE MANAGER ACCOUNT</h2>
+        <div>
+            <label>Enter your name</label>
+            <input id="name" name="name" type="text" placeholder="Enter your name here" required>
+        </div>
+        <span id="manager-name-invalid"></span>
+
+        <div>
+            <label>Enter your E-mail</label>
+            <input id="manager-login-email" name="email" type="email" placeholder="Enter your E-mail here" required>
+        </div>
+        <span id="manager-email-invalid"></span>
+
+
+        <div>
+            <label>Enter your phone number</label>
+            <input id="ph-num" name="phoneNumber" type="text" placeholder="Enter your phone number here" required>
+        </div>
+        <span id="manager-phoneNumber-invalid"></span>
+
+
+        <div>
+            <label>Select your gender</label>
+            <select name="gender" required>
+                <option value="">-- Select Gender --</option>
+                <option value="Male">Male</option>
+                <option value="Famale">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+
+        <div>
+            <label>Create a password</label>
+            <div class="show-password">
+                <input id="manager-login-password" name="password" type="password" placeholder="Enter your password " required>
+                <span id="toggle-show-password" onclick="togglePassword(this,'manager-login-password')">🙈</span>
+            </div>
+        </div>
+        <span id="manager-password-invalid"></span>
+
+        <div>
+            <label>Confirm password</label>
+            <div class="show-password">
+                <input id="confirm-password" type="password" placeholder="Enter your confirm password" required>
+                <span id="toggle-show-confirm-password" onclick="togglePassword(this,'confirm-password')">🙈</span>
+            </div>
+        </div>
+        <span id="manager-cpassword-invalid"></span>
+
+        <button onclick="managerValidation(event,'signup','manager-signup-form')">Login</button>
+    </form>
+</div>
+<script src="script/toggle.js"></script>
+<script src="script/validation/commonValidation.js"></script>
+<script src="script/validation/managerValidation.js"></script>
+</body>
+</html>
