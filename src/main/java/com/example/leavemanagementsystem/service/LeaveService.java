@@ -17,26 +17,29 @@ public class LeaveService {
     @Autowired
     LeaveRequestRepository leaveRequestRepository;
 
-    //employee
+    // saving employee leave request
     public void addLeaveRequest(LeaveRequest leaveRequest) {
         requestsList.add(leaveRequest);
         leaveRequestRepository.save(leaveRequest);
     }
 
+    // getting leave request by emp ID for displaying at emp dashboard
     public List<LeaveRequest> getLeaveRequestsByEmployeeId(int id) {
         requestsList = leaveRequestRepository.findByEmployee_Id(id);
         return requestsList;
     }
 
+    //getting all leave requests
     public List<LeaveRequest> getLeaveRequestsList() {
         return requestsList;
     }
 
 
     //manager
-    public void setStatusById(int id,String status) {
+    // leave approval or rejected by manager id
+    public void setStatusById(int manager_id,String status) {
         for(LeaveRequest leaveRequest1:requestsList) {
-            if (leaveRequest1.getId() == id) {
+            if (leaveRequest1.getId() == manager_id) {
                 leaveRequest1.setStatus(status);
                 leaveRequestRepository.save(leaveRequest1);
                 break;
@@ -44,6 +47,7 @@ public class LeaveService {
         }
     }
 
+    // getting leave request by emp ID for displaying at manager dashboard
     public List<LeaveRequest> getLeaveRequestsByManagerId(int id) {
         requestsList = leaveRequestRepository.findByManager_Id(id);
         return requestsList;

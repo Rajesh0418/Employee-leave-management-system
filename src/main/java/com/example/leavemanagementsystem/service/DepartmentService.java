@@ -18,18 +18,22 @@ public class DepartmentService {
     @Getter
     Department department;
 
+    // getting all dept's details
     public List<Department> findAllDepartments() {
         return deptRepo.findAll();
     }
 
+    // getting no. of depts in the company
     public int getDepartmentCount() {
         return deptRepo.findAll().size();
     }
 
+    // getting how many emp's are there in each dept
     public int getNoOfEmployeesByDepartment() {
         return department.getNo_of_employees();
     }
 
+    // getting current dept
     public void getDepartment(String departmentName) {
         department = deptRepo.findAll().stream()
                 .filter(dept -> (dept.getDepartment_name().equalsIgnoreCase(departmentName)
@@ -38,6 +42,7 @@ public class DepartmentService {
                 .orElse(null);
     }
 
+    // updating the no. of employees in the dept by 1 and save the updated data
     public void updateNoOfEmployeesByDepartment(int countEmployee) {
         department.setNo_of_employees(countEmployee+1);
         deptRepo.save(department);
