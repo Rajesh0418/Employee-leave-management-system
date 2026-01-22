@@ -32,6 +32,8 @@ public class EmployeeController {
     @Autowired
     ManagerController managerController;
 
+
+    // login auth of employee
     @GetMapping("/login")
     public String logincheck(@ModelAttribute Employee employeeData, HttpSession session) {
         employeeService.findEmployee(employeeData);
@@ -41,23 +43,29 @@ public class EmployeeController {
             session.setAttribute("employeeData", employee);
             return "/employee/employeeProfile";
         }
+        // if user enters wrong credentials
         return "redirect:/employeeLogin.html?error=Invalid credentials";
     }
 
+    // saving the data of an employee when emp singing up
     @PostMapping("/add-employee")
     public String addEmployee(@ModelAttribute Employee userdata,String managerId) {
         String departmentName = userdata.getDepartment();
+        // updating the no. of employees in the dept by deptName
         departmentController.updateNoOfEmployeesByDepartment(departmentName);
+        //setting the manager id for emp class
         userdata.setManager(managerController.getManagerById(Integer.parseInt(managerId)));
         employeeService.addEmployee(userdata);
         return "redirect:/employeeLogin.html";
     }
 
+    // for displaying the no. of emp's in the company
     @GetMapping("/employee-count")
     public int getEmployeeCount(){
         return employeeService.getEmployeeCount();
     }
 
+    // getting emp's list
     @GetMapping("/employees")
     public String getEmployeeList(Model model, HttpSession session) {
         List<Employee> employeeList = employeeService.getEmployeeList();
@@ -65,6 +73,7 @@ public class EmployeeController {
         return "/employee/employeeList"; // your JSP name
     }
 
+    // emp profile
     @GetMapping("/employee-profile")
     public String getEmployeeProfile(Model model, HttpSession session) {
         List<LeaveRequest> leaveRequests = employeeService.getCurrentEmployee().getLeaveRequests();
@@ -72,11 +81,13 @@ public class EmployeeController {
         return "/employee/employeeProfile";
     }
 
+    // navigating to changing the password page
     @GetMapping("/change-password")
     public String changePassword() {
         return "/employee/empChangePassword";
     }
 
+    // emp logout
     @GetMapping("/logout")
     public String logout(SessionStatus status, Model model, HttpSession session) {
         status.setComplete();
@@ -84,6 +95,7 @@ public class EmployeeController {
         return "redirect:/employeeLogin.html";
     }
 
+    // Business logic for changing the data
     @PostMapping("/new-password")
     public String setNewPassword(String password, HttpSession session) {
         employeeService.setNewPassword(password);
@@ -92,18 +104,21 @@ public class EmployeeController {
         return "/employee/employeeProfile";
     }
 
+    // navigating to employee login page
     @GetMapping("/employee-login")
     public String employeeLogin() {
         return "redirect:/employeeLogin.html";
     }
 
 
+    // navigating to emp leave request page
     @GetMapping("/employee-leave-request-status")
     public String employeeLeaveRequestStatus(HttpSession session) {
         Employee emp = employeeService.getCurrentEmployee();
         if (emp == null) {
             return "redirect:/employee-login";
         }
+        // setting all leave requests which are in the name of emp
         emp.setLeaveRequests(leaveController.getLeaveRequestsByEmployeeId(emp.getId()));
         List<LeaveRequest> leaveRequestsList = emp.getLeaveRequests();
         session.setAttribute("employeeData", emp);
@@ -111,11 +126,13 @@ public class EmployeeController {
         return "/employee/employeeLeaveRequestStatus";
     }
 
+    // navigating to emp leave request form page if employee wants to add a leave request
     @GetMapping("/leave-request-form")
     public String leaveRequest(HttpSession session) {
         return "/leaveRequest/requestLeave";
     }
 
+    // business logic for sending request to employee and saving the leave request
     @PostMapping("/submit-leave-request")
     public String submitLeaveRequest(LeaveRequest leaveRequest, HttpSession session) {
         Employee employee=employeeService.getCurrentEmployee();
@@ -133,6 +150,7 @@ public class EmployeeController {
         return "/employee/employeeLeaveRequestStatus";
     }
 
+    // signup page
     @GetMapping("/signup")
     public String signup(HttpSession session) {
         List<Manager> managers=managerController.getManagers();

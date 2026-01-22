@@ -27,11 +27,14 @@ public class ManagerController {
 
     @Autowired
     LeaveController leaveController;
+
+    //login auth of manager
     @GetMapping("/login")
     public String logincheck(@ModelAttribute Manager ManagerData, Model model, HttpSession session) {
         managerService.findManager(ManagerData);
         Manager manager = managerService.getCurrentManager();
         if (manager != null) {
+            //fetching emp and dept count
             int empCount = employeeService.getEmployeeCount(); // from DB
             int deptCount = departmentController.getDepartmentCount();
             model.addAttribute("empCount", empCount);
@@ -57,12 +60,14 @@ public class ManagerController {
         return "/manager/dashboard";  // safe to show
     }
 
+    // saving the manager data
     @PostMapping("/add-manager")
     public String addManager(@ModelAttribute Manager userdata) {
         managerService.addManager(userdata);
         return "redirect:/managerLogin.html";
     }
 
+    // displaying the emp count and dept count on dashboard
     @GetMapping("/dashboard")
     public String managerDashboard(Model model)
     {
@@ -78,6 +83,7 @@ public class ManagerController {
         return "redirect:/managerLogin.html";
     }
 
+    // business logic for new password
     @PostMapping("/new-password")
     public String setNewPassword(String password, HttpSession session) {
         managerService.setNewPassword(password);
@@ -86,17 +92,20 @@ public class ManagerController {
         return "/manager/managerProfile";
     }
 
+    // navigating to change password page
     @GetMapping("/change-password")
     public String changePassword() {
         return "/manager/managerChangePassword";
     }
 
+    // navigating to manager profile
     @GetMapping("/manager-profile")
     public String managerProfile() {
         return "/manager/managerProfile";
     }
 
 
+    // whose emp is assigned to the manager that emp requests will be fetched
     @GetMapping("/employee-leave-list")
     public String employeeLeaveRequestStatus(HttpSession session) {
         Manager manager = managerService.getCurrentManager();
@@ -110,6 +119,7 @@ public class ManagerController {
         return "/manager/managerLeaveResponseStatus";
     }
 
+    // leave accepted
     @GetMapping("/leave-request-accepted")
     public String submitLeaveRequestAccepted(@RequestParam int id, HttpSession session) {
 
@@ -125,10 +135,11 @@ public class ManagerController {
         return "/manager/managerLeaveResponseStatus";
     }
 
+    // leave rejected
     @GetMapping("/leave-request-rejected")
-    public String submitLeaveRequestRejected(@RequestParam int id, HttpSession session) {
+    public String submitLeaveRequestRejected(@RequestParam int manager_id, HttpSession session) {
 
-        leaveController.setStatusById(id,"Rejected");
+        leaveController.setStatusById(manager_id,"Rejected");
 
         Manager manager = managerService.getCurrentManager();
         manager.setHandledRequests(leaveController.getLeaveRequestsList());
@@ -140,12 +151,13 @@ public class ManagerController {
         return "/manager/managerLeaveResponseStatus";
     }
 
+    // getting managers list for displaying it in emp signup page
     public List<Manager> getManagers() {
         return managerService.getManagers();
     }
 
+    // getting manager data by id
     public Manager getManagerById(int managerId) {
-        //int id=Integer.parseInt(managerId);
         return managerService.getManagerById(managerId);
     }
 }

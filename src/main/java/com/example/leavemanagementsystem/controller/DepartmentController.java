@@ -17,8 +17,9 @@ import java.util.List;
 public class DepartmentController {
 
     @Autowired
-    DepartmentService departmentService;
+    DepartmentService departmentService; 
 
+    //fetching the all departments and setting a session for department
     @GetMapping("/departments")
     public String departments(Model model) {
         List<Department> departments = departmentService.findAllDepartments();
@@ -26,22 +27,26 @@ public class DepartmentController {
         return "/department/department";
     }
 
+    //counting the no. of dept's for displaying on manager dashboard
     @GetMapping("/department-count")
     public int getDepartmentCount() {
         return departmentService.getDepartmentCount();
     }
+
 
     @GetMapping("/department")
     public void getDepartment(String departmentName) {
         departmentService.getDepartment(departmentName);
     }
 
+    //getting no. of employees from dept for updating the no. of employees in the dept when employee signing up
     @GetMapping("/noOf-employees-department")
     public int getNoOfEmployeesByDepartment(String departmentName) {
         getDepartment(departmentName);
         return departmentService.getNoOfEmployeesByDepartment();
     }
 
+    //for updating the no. of employees in the dept when employee signing up
     public void updateNoOfEmployeesByDepartment(String departmentName) {
         int countEmployee=getNoOfEmployeesByDepartment(departmentName);
         departmentService.updateNoOfEmployeesByDepartment(countEmployee);

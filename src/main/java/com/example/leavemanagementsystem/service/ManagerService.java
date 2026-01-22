@@ -18,6 +18,7 @@ public class ManagerService {
     @Getter
     Manager currentManager;
 
+    // getting the manager
     public void findManager(Manager userdata) {
         currentManager = repo.findAll().stream()
                 .filter(user -> (user.getEmail().equalsIgnoreCase(userdata.getEmail()) &&
@@ -28,20 +29,23 @@ public class ManagerService {
         System.out.println(currentManager);
     }
 
+    // saving the data of new manager
     public void addManager(Manager userdata) {
         repo.save(userdata);
     }
 
-
+    // setting new password for manager
     public void setNewPassword(String password) {
         currentManager.setPassword(password);
         repo.save(currentManager);
     }
 
+    // getting list of managers for showcasing to emp signup page
     public List<Manager> getManagers() {
         return repo.findAll();
     }
 
+    //getting manager data by id for assigning to manager_id in emp class member
     public Manager getManagerById(int id) {
         return repo.findById(id).orElse(null);
     }

@@ -14,8 +14,8 @@ public interface DepartmentRepository extends JpaRepository<Department,Integer>{
     @Query("SELECT d.no_of_employees FROM Department d WHERE d.department_name = :deptname")
     Integer findNoOfEmployeesByDeptname(@Param("deptname") String deptname);
 
-    @Modifying
-    @Transactional
+    @Modifying //“This is not a SELECT query; it changes data (UPDATE/DELETE).”
+    @Transactional //Run this update inside a database transaction.
     @Query("UPDATE Department d SET d.no_of_employees = :count WHERE d.department_name = :deptname")
     int updateNoOfEmployeesByDeptname(@Param("deptname") String deptname,
                                       @Param("count") int count);
