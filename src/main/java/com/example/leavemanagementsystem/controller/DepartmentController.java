@@ -2,7 +2,6 @@ package com.example.leavemanagementsystem.controller;
 
 import com.example.leavemanagementsystem.model.Department;
 import com.example.leavemanagementsystem.service.DepartmentService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
-@Getter
+
 @RequestMapping("/department")
 @Controller
 public class DepartmentController {

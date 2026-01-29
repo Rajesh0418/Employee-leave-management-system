@@ -91,7 +91,6 @@ response.setDateHeader("Expires", 0);
 
 <div class="main">
     <div class="topbar">
-        <div>Employee MS</div>
         <div>Welcome, ${employeeData.name}</div>
         <a class="logout" href="/employee/logout" style="color:white;text-decoration:none;">Logout</a>
     </div>
